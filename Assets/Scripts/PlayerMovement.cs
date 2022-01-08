@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed = 2f;
-    public float rotationSpeed = 1f;
+    public float rotationSpeed = 240f;
     public float runMultiplier = 2f;
 
     [SerializeField] CharacterController cc;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("PosX", hori/2);
         anim.SetFloat("PosY", vert/2);
 
-        transform.Rotate(0f, hori*rotationSpeed*.3f, 0f);
+        transform.Rotate(0f, hori*rotationSpeed*.3f*Time.deltaTime, 0f);
         cc.Move(move*Time.deltaTime);
     }
 }

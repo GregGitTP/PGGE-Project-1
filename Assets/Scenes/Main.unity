@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  rotationSpeed: 5
+  rotationSpeed: 240
   runMultiplier: 2
   cc: {fileID: 534610729}
   anim: {fileID: 507577038}
@@ -540,6 +540,10 @@ MonoBehaviour:
   x: 0
   y: 3
   z: -3
+  cameraAngleOffset: 20
+  camPos: {x: 0, y: 0, z: 0}
+  blockedCamPos: {x: 0, y: 0, z: 0}
+  blocked: 0
 --- !u!114 &826316117
 MonoBehaviour:
   m_ObjectHideFlags: 0

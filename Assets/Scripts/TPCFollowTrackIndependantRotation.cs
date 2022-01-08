@@ -12,7 +12,7 @@ public class TPCFollowTrackIndependantRotation : TPCFollow
         camera.LookAt(new Vector3(player.position.x, player.position.y + playerHeight, player.position.z));
     }
     
-    protected override void Update(){
+    protected override void LateUpdate(){
         Vector3 cameraForward = player.InverseTransformDirection(camera.forward);
 
         camera.position = Vector3.Lerp(camera.position, player.TransformPoint(new Vector3(x, y, z)), Time.deltaTime * damping);

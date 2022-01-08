@@ -8,5 +8,5 @@ public abstract class TPCBase : MonoBehaviour
     [SerializeField] protected float damping, playerHeight;
 
     protected abstract void OnEnable();
-    protected abstract void Update();
+    protected abstract void LateUpdate();
 }

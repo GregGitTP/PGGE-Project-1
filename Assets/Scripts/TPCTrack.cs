@@ -8,7 +8,7 @@ public class TPCTrack : TPCBase
         camera.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
-    protected override void Update(){
+    protected override void LateUpdate(){
         camera.LookAt(new Vector3(player.position.x, player.position.y + playerHeight, player.position.z));
     }
 }
