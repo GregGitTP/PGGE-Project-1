@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TPCFollowTrackRotation : TPCFollow
 {
-    public float cameraAngleOffset = 20f;   
+    public float cameraAngleOffset = 20f;
 
     [HideInInspector] public Vector3 camPos, blockedCamPos;
     [HideInInspector] public bool blocked = false;
@@ -14,13 +14,21 @@ public class TPCFollowTrackRotation : TPCFollow
     }
 
     protected override void LateUpdate(){
+        UpdatePosition();
+        UpdateRotation();
+    }
+
+    private void UpdatePosition(){
         camPos = player.TransformPoint(new Vector3(x, y, z));
         if(!blocked){
             camera.position = Vector3.Lerp(camera.position, camPos, Time.deltaTime * damping);
-        }else{
+        }
+        else{
             camera.position = Vector3.Lerp(camera.position, blockedCamPos, Time.deltaTime * damping);
         }
+    }
 
+    private void UpdateRotation(){
         Vector3 playerAngle = new Vector3(cameraAngleOffset, player.eulerAngles.y, player.eulerAngles.z);
 
         camera.rotation = Quaternion.Slerp(camera.rotation, Quaternion.Euler(playerAngle), Time.deltaTime * damping);
