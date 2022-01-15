@@ -476,11 +476,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 826316113}
-  - component: {fileID: 826316114}
-  - component: {fileID: 826316115}
-  - component: {fileID: 826316116}
-  - component: {fileID: 826316117}
-  - component: {fileID: 826316118}
   - component: {fileID: 826316119}
   m_Layer: 0
   m_Name: ThirdPersonCamera
@@ -503,101 +498,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &826316114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826316112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6837df08c881b654cbdd579a873e492c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  damping: 0
-  playerHeight: 2.2
---- !u!114 &826316115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826316112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26735e81c3e65824b8d844b0e4758cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  damping: 3
-  playerHeight: 2.2
-  x: 0
-  y: 2
-  z: -2
---- !u!114 &826316116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826316112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7edf5ec1b723b744293ddcde8fdfa74c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  damping: 3
-  playerHeight: 2.2
-  x: 0
-  y: 3
-  z: -3
-  cameraAngleOffset: 20
-  camPos: {x: 0, y: 0, z: 0}
-  blockedCamPos: {x: 0, y: 0, z: 0}
-  blocked: 0
---- !u!114 &826316117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826316112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5752d883579722d448a417dc7d7ccdd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  damping: 3
-  playerHeight: 2.2
-  distanceFromPlayer: 5
---- !u!114 &826316118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826316112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d8d36762e5e4f478b3411c4d25cbcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  damping: 3
-  playerHeight: 2.2
-  x: 0
-  y: 3
-  z: -3
-  sensitivity: 10
 --- !u!114 &826316119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,9 +510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4de8be18c5a6d4096faef92f2a7586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
-  player: {fileID: 534610728}
-  playerHeight: 2.2
+  camera: {fileID: 0}
+  player: {fileID: 0}
+  playerHeight: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

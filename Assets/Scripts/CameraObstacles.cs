@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraObstacles : MonoBehaviour
 {
     public Transform camera, player;
-    public float playerHeight;
 
     private void Update(){
         Vector3 offset = player.forward;

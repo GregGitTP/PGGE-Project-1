@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace PGGE{
-    public abstract class TPCBase : MonoBehaviour
+    public abstract class TPCBase
     {
-        [SerializeField] protected Transform camera, player;
-        [SerializeField] protected float damping, playerHeight;
+        protected Transform camera, player;
 
-        protected abstract void OnEnable();
-        protected abstract void LateUpdate();
+        public TPCBase(Transform _camera, Transform _player){
+            camer = _camera;
+            player = _player;
+        }
+
+        protected abstract void Start();
+        protected abstract void Update();
     }
 }

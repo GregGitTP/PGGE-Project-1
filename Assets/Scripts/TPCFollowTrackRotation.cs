@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TPCFollowTrackRotation : TPCFollow
 {
-    public float cameraAngleOffset = 20f;
-
     [HideInInspector] public Vector3 camPos, blockedCamPos;
     [HideInInspector] public bool blocked = false;
 
-    protected override void OnEnable(){
+    public TPCFollowTrackRotation(Transform _camera, Transform _player, float x, float y, float z) : base(_camera, _player, x, y, z){}
+
+    protected override void Start(){
         camera.rotation = Quaternion.Euler(cameraAngleOffset, 0f, 0f);
     }
 
-    protected override void LateUpdate(){
+    protected override void Update(){
         UpdatePosition();
         UpdateRotation();
     }

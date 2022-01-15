@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementState : State
 {
     public float movementSpeed = 2f;
     public float rotationSpeed = 240f;
@@ -17,6 +17,14 @@ public class PlayerMovement : MonoBehaviour
     bool running = false;
     bool jump = false;
     bool crouch = false;
+
+    public PlayerMovementState(FSM _fsm, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce) : base(_fsm){
+        movementSpeed = _movementSPeed;
+        rotationSpeed = _rotationSpeed;
+        runMultiplier = _runMultiplier;
+        gravity = _gravity;
+        jumpForce = _jumpForce;
+    }
 
     private void Update()
     {
