@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Patterns{
+namespace Patterns
+{
     public class State{
         protected FSM fsm;
 
@@ -29,6 +30,10 @@ namespace Patterns{
 
         public State GetState(int key){
             return states[key];
+        }
+
+        public State GetCurrentState(){
+            return currentState;
         }
 
         public void SetCurrentState(State _state){

@@ -26,22 +26,28 @@ public class Player : MonoBehaviour
     public float zOffset;
 
     FSM fsm = new FSM();
-    State moveState, attackState;
+    State moveState, attackState, reloadState;
 
     private void Start(){
         moveState = new PlayerMovementState(fsm, camera, player, cc, anim,movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, xOffset, yOffset, zOffset);
 
         attackState = new PlayerAttackState(fsm, player, anim);
+
+        reloadState = new PlayerReloadState(fsm, anim);
         
         fsm.Add(0, moveState);
         fsm.Add(1, attackState);
+        fsm.Add(2, reloadState);
 
         fsm.SetCurrentState(moveState);
     }
 
     private void Update(){
-        if(Input.GetMouseButton(0)) fsm.SetCurrentState(attackState);
-        else fsm.SetCurrentState(moveState);
+        if(fsm.GetCurrentState() != reloadState){
+            if(Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.C)) fsm.SetCurrentState(fsm.GetState(1));
+            else if(Input.GetKey(KeyCode.R)) fsm.SetCurrentState(fsm.GetState(2));
+            else fsm.SetCurrentState(fsm.GetState(0));
+        }
 
         fsm.Update();
     }
