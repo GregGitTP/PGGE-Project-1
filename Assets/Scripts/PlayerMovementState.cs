@@ -1,44 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Patterns;
+using PGGE; 
 
 public class PlayerMovementState : State
 {
-    public float movementSpeed = 2f;
-    public float rotationSpeed = 240f;
-    public float runMultiplier = 2f;
-    public float gravity = -20f;
-    public float jumpForce = 8f;
+    float movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, x, y, z;
 
-    [SerializeField] CharacterController cc;
-    [SerializeField] Animator anim;
+    Transform camera, player;
+    CharacterController cc;
+    Animator anim;
+
+    TPCFollowTrackRotation tpc;
+    RepositionCamera rc;
 
     Vector3 velocity = Vector3.zero;
     bool running = false;
     bool jump = false;
     bool crouch = false;
 
-    public PlayerMovementState(FSM _fsm, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce) : base(_fsm){
-        movementSpeed = _movementSPeed;
+    public PlayerMovementState(FSM _fsm, Transform _camera, Transform _player, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
+        camera = _camera;
+        player = _player;
+        cc = _cc;
+        anim = _anim;
+        movementSpeed = _movementSpeed;
         rotationSpeed = _rotationSpeed;
         runMultiplier = _runMultiplier;
         gravity = _gravity;
         jumpForce = _jumpForce;
+        x = _x;
+        y = _y;
+        z = _z;
     }
 
-    private void Update()
+    public override void Enter(){
+        tpc = new TPCFollowTrackRotation(camera, player, x, y, z);
+        rc = new RepositionCamera(camera, player, tpc);
+    }
+
+    public override void Exit(){
+        tpc = null;
+        rc = null;
+    }
+
+    public override void Update()
     {
         HandleInputs();
         Move();
     }
 
-    private void FixedUpdate(){
+    public override void FixedUpdate(){
         ApplyGravity();
     }
 
+    public override void LateUpdate(){
+        tpc.Update();
+        rc.Update();
+    }
+
     private void HandleInputs(){
-        if (Input.GetKeyDown(KeyCode.LeftShift)) running = true;
-        if (Input.GetKeyUp(KeyCode.LeftShift)) running = false;
+        if(Input.GetKeyDown(KeyCode.LeftShift)) running = true;
+        if(Input.GetKeyUp(KeyCode.LeftShift)) running = false;
         if(Input.GetKeyDown(KeyCode.Space)) jump = true;
         if(Input.GetKeyUp(KeyCode.Space)) jump = false;
         if(Input.GetKeyDown(KeyCode.Tab)){
@@ -53,16 +77,16 @@ public class PlayerMovementState : State
 
         if (running && !(vert < 0)) vert *= runMultiplier;
 
-        Vector3 move = transform.forward * vert * movementSpeed;
+        Vector3 move = player.forward * vert * movementSpeed;
 
         cc.Move(move*Time.deltaTime);
 
-        transform.Rotate(0f, hori*rotationSpeed*.3f*Time.deltaTime, 0f);
+        player.Rotate(0f, hori*rotationSpeed*.3f*Time.deltaTime, 0f);
 
         anim.SetFloat("PosX", hori/2);
         anim.SetFloat("PosY", vert/2);
 
-        if(jump && anim.GetCurrentAnimatorStateInfo(0).IsName("GroundMovement")) StartCoroutine(Jump()); 
+        if(jump && anim.GetCurrentAnimatorStateInfo(0).IsName("GroundMovement")) Jump(); 
     }
 
     private void ApplyGravity(){
@@ -73,9 +97,8 @@ public class PlayerMovementState : State
         if(cc.isGrounded && velocity.y < 0f) velocity.y = 0f;
     }
 
-    private IEnumerator Jump(){
+    public void Jump(){
         anim.SetTrigger("Jump");
-        yield return new WaitForSeconds(.2f);
         velocity.y += jumpForce;
     }
 

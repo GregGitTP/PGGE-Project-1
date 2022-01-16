@@ -8,11 +8,11 @@ namespace PGGE{
         protected Transform camera, player;
 
         public TPCBase(Transform _camera, Transform _player){
-            camer = _camera;
+            camera = _camera;
             player = _player;
         }
 
-        protected abstract void Start();
-        protected abstract void Update();
+        public abstract void Start();
+        public abstract void Update();
     }
 }

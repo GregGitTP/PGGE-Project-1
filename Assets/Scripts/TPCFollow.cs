@@ -13,11 +13,11 @@ public class TPCFollow : TPCBase
         z = _z;
     }
 
-    protected override void Start(){
+    public override void Start(){
         camera.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
-    protected override void Update(){
-        camera.position = Vector3.Lerp(camera.position, player.position + new Vector3(x, y, z), Time.deltaTime * damping);
+    public override void Update(){
+        camera.position = Vector3.Lerp(camera.position, player.position + new Vector3(x, y, z), Time.deltaTime * GameConstants.damping);
     }
 }

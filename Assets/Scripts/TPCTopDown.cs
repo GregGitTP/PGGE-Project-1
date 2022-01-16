@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PGGE;
 
 public class TPCTopDown : TPCTrack
 {
@@ -10,12 +11,12 @@ public class TPCTopDown : TPCTrack
         distanceFromPlayer =  _distanceFromPlayer;
     }
 
-    protected override void Start(){
+    public override void Start(){
         camera.rotation = Quaternion.Euler(90f, 0f, 0f);
     }
 
-    protected override void Update(){
-        Vector3 targetPos = new Vector3(player.position.x, player.position.y + playerHeight + distanceFromPlayer, player.position.z);
-        camera.position = Vector3.Lerp(camera.position, targetPos, Time.deltaTime * damping);
+    public override void Update(){
+        Vector3 targetPos = new Vector3(player.position.x, player.position.y + GameConstants.playerHeight + distanceFromPlayer, player.position.z);
+        camera.position = Vector3.Lerp(camera.position, targetPos, Time.deltaTime * GameConstants.damping);
     }
 }

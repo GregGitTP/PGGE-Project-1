@@ -14,6 +14,7 @@ namespace Patterns{
         public virtual void Exit(){}
         public virtual void Update(){}
         public virtual void FixedUpdate(){}
+        public virtual void LateUpdate(){}
     }
 
     public class FSM{
@@ -32,9 +33,7 @@ namespace Patterns{
 
         public void SetCurrentState(State _state){
             if(currentState != null) currentState.Exit();
-
             currentState = _state;
-            
             if(currentState != null) currentState.Enter();
         }
 
@@ -44,6 +43,10 @@ namespace Patterns{
 
         public void FixedUpdate(){
             if(currentState != null) currentState.FixedUpdate();
+        }
+
+        public void LateUpdate(){
+            if(currentState != null) currentState.LateUpdate();
         }
     }
 }

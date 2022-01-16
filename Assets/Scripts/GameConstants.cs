@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace PGGE{
     public static class GameConstants{
-        public static damping = 5f;
-        public static playerHeight = 2.2f;
-        public static cameraAngleOffset = 20f;
+        public static float damping = 5f;
+        public static float playerHeight = 2.2f;
+        public static float cameraAngleOffset = 20f;
     }
 }
