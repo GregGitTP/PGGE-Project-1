@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Patterns;
+using PGGE;
 
 public class PlayerReloadState : State
 {
@@ -14,7 +15,7 @@ public class PlayerReloadState : State
     }
 
     public override void Enter(){
-        Debug.Log("Reloading");
+        GameConstants.ReloadAmmoTxt();
 
         elapTime = 0f;
 
@@ -22,9 +23,7 @@ public class PlayerReloadState : State
     }
 
     public override void Exit(){
-        Debug.Log("Ready to shoot");
-
-        fsm.GetState(1).currentAmmunitionCount = fsm.GetState(1).maxAmmunitionCount;
+        GameConstants.currentAmmunitionCount = GameConstants.maxAmmunitionCount;
     }
 
     public override void Update(){}

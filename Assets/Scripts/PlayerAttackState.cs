@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Patterns;
+using PGGE;
 
 public class PlayerAttackState : State
 {
-    public float currentAmmunitionCount = 20;
-    public float maxAmmunitionCount = 20;
-
     Transform player;
     Animator anim;
 
@@ -29,7 +27,7 @@ public class PlayerAttackState : State
     }
 
     public override void Update(){
-        if(currentAmmunitionCount <= 0){
+        if(GameConstants.currentAmmunitionCount <= 0){
             fsm.SetCurrentState(fsm.GetState(2));
             return;
         }
@@ -49,18 +47,19 @@ public class PlayerAttackState : State
             shootRate = .4f;
             shootAmt = 1;
         }
-        else if(Input.GetKey(KeyCode.R)){
+
+        if(Input.GetKey(KeyCode.R)){
             fsm.SetCurrentState(fsm.GetState(2));
-            currentAmmunitionCount = maxAmmunitionCount;
             return;
         }
 
         if(elapTime >= shootRate){
-            Debug.Log("You currently have " + currentAmmunitionCount + " ammo left");
-            currentAmmunitionCount -= shootAmt;
+            GameConstants.currentAmmunitionCount -= shootAmt;
             elapTime = 0f;
         }
         else elapTime += Time.deltaTime;
+
+        GameConstants.UpdateAmmoTxt();
     }
 
     public override void FixedUpdate(){}

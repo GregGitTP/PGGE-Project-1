@@ -49,6 +49,7 @@ public class PlayerMovementState : State
     {
         HandleInputs();
         Move();
+        GameConstants.UpdateAmmoTxt();
     }
 
     public override void FixedUpdate(){

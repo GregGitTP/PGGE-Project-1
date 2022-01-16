@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Patterns;
 using PGGE;
 
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     public Transform player;
     public CharacterController cc;
     public Animator anim;
+    public Text ammoTxt;
 
     [Header("Values for character movement")]
     [Space(10)]
@@ -43,13 +45,14 @@ public class Player : MonoBehaviour
     }
 
     private void Update(){
-        if(fsm.GetCurrentState() != reloadState){
+        if(fsm.GetCurrentState() != fsm.GetState(2)){
             if(Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.C)) fsm.SetCurrentState(fsm.GetState(1));
             else if(Input.GetKey(KeyCode.R)) fsm.SetCurrentState(fsm.GetState(2));
             else fsm.SetCurrentState(fsm.GetState(0));
         }
 
         fsm.Update();
+        ammoTxt.text = GameConstants.ammoTxt;
     }
 
     private void FixedUpdate(){

@@ -23,13 +23,12 @@ public class RepositionCamera
 
         LayerMask mask = LayerMask.GetMask("Wall");
         RaycastHit hit;
-
         if(Physics.Raycast(playerPosition, (cameraPosition - playerPosition), out hit, Vector3.Distance(cameraPosition, playerPosition), mask)){
-            tpc.blocked = true;
-            tpc.blockedCamPos = hit.point + (offset * 1f);
+            GameConstants.blocked = true;
+            GameConstants.blockedCamPos = hit.point + (offset * 1f);
         }
         else{
-            tpc.blocked = false;
+            GameConstants.blocked = false;
         }
     }
 }

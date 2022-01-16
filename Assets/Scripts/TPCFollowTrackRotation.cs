@@ -5,8 +5,8 @@ using PGGE;
 
 public class TPCFollowTrackRotation : TPCFollow
 {
-    [HideInInspector] public Vector3 camPos, blockedCamPos;
-    [HideInInspector] public bool blocked = false;
+    public Vector3 camPos;
+    
 
     public TPCFollowTrackRotation(Transform _camera, Transform _player, float x, float y, float z) : base(_camera, _player, x, y, z){}
 
@@ -21,11 +21,11 @@ public class TPCFollowTrackRotation : TPCFollow
 
     private void UpdatePosition(){
         camPos = player.TransformPoint(new Vector3(x, y, z));
-        if(!blocked){
+        if(!GameConstants.blocked){
             camera.position = Vector3.Lerp(camera.position, camPos, Time.deltaTime * GameConstants.damping);
         }
         else{
-            camera.position = Vector3.Lerp(camera.position, blockedCamPos, Time.deltaTime * GameConstants.damping);
+            camera.position = Vector3.Lerp(camera.position, GameConstants.blockedCamPos, Time.deltaTime * GameConstants.damping);
         }
     }
 
