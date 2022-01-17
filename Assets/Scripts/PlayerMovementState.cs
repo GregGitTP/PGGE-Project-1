@@ -65,9 +65,13 @@ public class PlayerMovementState : State
 
     private void HandleInputs(){
         if(Input.GetKeyDown(KeyCode.LeftShift)) running = true;
+        
         if(Input.GetKeyUp(KeyCode.LeftShift)) running = false;
+
         if(Input.GetKeyDown(KeyCode.Space)) jump = true;
+
         if(Input.GetKeyUp(KeyCode.Space)) jump = false;
+
         if(Input.GetKeyDown(KeyCode.Tab)){
             crouch = !crouch;
             Crouch();
