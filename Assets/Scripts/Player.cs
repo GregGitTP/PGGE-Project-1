@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     State moveState, attackState, reloadState;
 
     private void Start(){
-        moveState = new PlayerMovementState(fsm, camera, player, cc, anim,movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, xOffset, yOffset, zOffset);
+        moveState = new PlayerMovementState(fsm, camera, player, this, cc, anim, movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, xOffset, yOffset, zOffset);
 
         attackState = new PlayerAttackState(fsm, player, anim);
 

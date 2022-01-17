@@ -11,6 +11,7 @@ public class PlayerMovementState : State
     Transform camera, player;
     CharacterController cc;
     Animator anim;
+    MonoBehaviour mb;
 
     TPCFollowTrackRotation tpc;
     RepositionCamera rc;
@@ -20,9 +21,10 @@ public class PlayerMovementState : State
     bool jump = false;
     bool crouch = false;
 
-    public PlayerMovementState(FSM _fsm, Transform _camera, Transform _player, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
+    public PlayerMovementState(FSM _fsm, Transform _camera, Transform _player, MonoBehaviour _mb, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
         camera = _camera;
         player = _player;
+        mb = _mb;
         cc = _cc;
         anim = _anim;
         movementSpeed = _movementSpeed;
@@ -87,7 +89,7 @@ public class PlayerMovementState : State
         anim.SetFloat("PosX", hori/2);
         anim.SetFloat("PosY", vert/2);
 
-        if(jump && anim.GetCurrentAnimatorStateInfo(0).IsName("GroundMovement")) Jump(); 
+        if(jump && anim.GetCurrentAnimatorStateInfo(0).IsName("GroundMovement")) mb.StartCoroutine(Jump()); 
     }
 
     private void ApplyGravity(){
@@ -98,8 +100,9 @@ public class PlayerMovementState : State
         if(cc.isGrounded && velocity.y < 0f) velocity.y = 0f;
     }
 
-    public void Jump(){
+    public IEnumerator Jump(){
         anim.SetTrigger("Jump");
+        yield return new WaitForSeconds(.2f);
         velocity.y += jumpForce;
     }
 
