@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Patterns;
+using PGGE;
 
 public class Vampire : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    FSM fsm = new FSM();
+    State moveState, attackState, reloadState;
+
+    private void Start(){
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update(){
+        fsm.Update();
+    }
+
+    private void FixedUpdate(){
+        fsm.FixedUpdate();
+    }
+
+    private void LateUpdate(){
+        fsm.LateUpdate();
     }
 }
