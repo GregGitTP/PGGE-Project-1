@@ -17,9 +17,11 @@ public class VampireMovementState : State
     RepositionCamera rc;
 
     Vector3 velocity = Vector3.zero;
+    bool run = false;
     bool running = false;
     bool jump = false;
     bool crouch = false;
+    bool wait1frame = false;
 
     public VampireMovementState(FSM _fsm, Transform _camera, Transform _player, MonoBehaviour _mb, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
         camera = _camera;
@@ -50,6 +52,7 @@ public class VampireMovementState : State
     public override void Update(){
         HandleInputs();
         Move();
+        GameConstants.UpdateMagicTxt();
     }
 
     public override void FixedUpdate(){
@@ -62,9 +65,9 @@ public class VampireMovementState : State
     }
 
     private void HandleInputs(){
-        if(Input.GetKeyDown(KeyCode.LeftShift)) running = true;
+        if(Input.GetKeyDown(KeyCode.LeftShift)) run = true;
         
-        if(Input.GetKeyUp(KeyCode.LeftShift)) running = false;
+        if(Input.GetKeyUp(KeyCode.LeftShift)) run = false;
 
         if(Input.GetKeyDown(KeyCode.Space)) jump = true;
 
@@ -80,16 +83,19 @@ public class VampireMovementState : State
         float vert = Input.GetAxis("Vertical");
         float hori = Input.GetAxis("Horizontal");
 
-        if (running && !(vert < 0)) vert *= runMultiplier;
+        if (run && !(vert < 0)) running = true;
+        else running = false;
 
         Vector3 move = player.forward * vert * movementSpeed;
+        if(running) move *= runMultiplier;
 
-        cc.Move(move*Time.deltaTime);
+        cc.Move(move * Time.deltaTime);
 
         player.Rotate(0f, hori*rotationSpeed*.3f*Time.deltaTime, 0f);
 
-        anim.SetFloat("PosX", hori/2);
-        anim.SetFloat("PosY", vert/2);
+        if(running) vert *= 2;
+        anim.SetFloat("PosY", vert, 1f, Time.deltaTime * 10f);
+        anim.SetFloat("PosX", hori, 1f, Time.deltaTime * 10f);
 
         if(jump && anim.GetCurrentAnimatorStateInfo(0).IsName("GroundMovement")) mb.StartCoroutine(Jump()); 
     }
@@ -102,7 +108,7 @@ public class VampireMovementState : State
         if(cc.isGrounded && velocity.y < 0f) velocity.y = 0f;
     }
 
-    public IEnumerator Jump(){
+    private IEnumerator Jump(){
         anim.SetTrigger("Jump");
         yield return new WaitForSeconds(.5f);
         velocity.y += jumpForce;

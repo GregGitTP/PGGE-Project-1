@@ -15,17 +15,19 @@ public class RepositionCamera
     }
 
     public void Update(){
-        Vector3 offset = player.forward;
+        Vector3 offsetWall = player.forward;
+        Vector3 offsetRoof = -player.up;
         
-        Vector3 cameraPosition = tpc.camPos - offset;
+        Vector3 cameraPosition = tpc.camPos - offsetWall;
 
         Vector3 playerPosition = new Vector3(player.position.x, player.position.y + GameConstants.playerHeight, player.position.z);
 
-        LayerMask mask = LayerMask.GetMask("Wall");
+        LayerMask mask = LayerMask.GetMask("Obstacle");
         RaycastHit hit;
         if(Physics.Raycast(playerPosition, (cameraPosition - playerPosition), out hit, Vector3.Distance(cameraPosition, playerPosition), mask)){
             GameConstants.blocked = true;
-            GameConstants.blockedCamPos = hit.point + (offset * 1f);
+            if(hit.transform.gameObject.tag == "Wall") GameConstants.blockedCamPos = hit.point + (offsetWall * 1f);
+            else if(hit.transform.gameObject.tag == "Roof") GameConstants.blockedCamPos = hit.point + (offsetRoof * .2f);
         }
         else{
             GameConstants.blocked = false;
