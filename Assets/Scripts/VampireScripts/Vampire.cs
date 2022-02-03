@@ -13,6 +13,7 @@ public class Vampire : MonoBehaviour
     public CharacterController cc;
     public Animator anim;
     public Text magicTxt;
+    public FixedJoystick joystick;
 
     [Header("Values for character movement")]
     [Space(10)]
@@ -31,7 +32,7 @@ public class Vampire : MonoBehaviour
     State moveState, attackState, reloadState;
 
     private void Start(){
-        moveState = new VampireMovementState(fsm, camera, player, this, cc, anim, movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, xOffset, yOffset, zOffset);
+        moveState = new VampireMovementState(fsm, joystick, camera, player, this, cc, anim, movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, xOffset, yOffset, zOffset);
 
         attackState = new VampireAttackState(fsm, player, anim);
 

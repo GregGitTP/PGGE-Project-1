@@ -8,6 +8,7 @@ public class VampireMovementState : State
 {
     float movementSpeed, rotationSpeed, runMultiplier, gravity, jumpForce, x, y, z;
 
+    FixedJoystick joystick;
     Transform camera, player;
     CharacterController cc;
     Animator anim;
@@ -21,9 +22,9 @@ public class VampireMovementState : State
     bool running = false;
     bool jump = false;
     bool crouch = false;
-    bool wait1frame = false;
 
-    public VampireMovementState(FSM _fsm, Transform _camera, Transform _player, MonoBehaviour _mb, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
+    public VampireMovementState(FSM _fsm, FixedJoystick _joystick, Transform _camera, Transform _player, MonoBehaviour _mb, CharacterController _cc, Animator _anim, float _movementSpeed, float _rotationSpeed, float _runMultiplier, float _gravity, float _jumpForce, float _x, float _y, float _z) : base(_fsm){
+        joystick = _joystick;
         camera = _camera;
         player = _player;
         mb = _mb;
@@ -80,8 +81,15 @@ public class VampireMovementState : State
     }
 
     private void Move(){
-        float vert = Input.GetAxis("Vertical");
-        float hori = Input.GetAxis("Horizontal");
+        #if UNITY_STANDALONE
+            float vert = Input.GetAxis("Vertical");
+            float hori = Input.GetAxis("Horizontal");
+        #endif
+
+        #if UNITY_ANDROID
+            float vert = joystick.Vertical;
+            float hori = joystick.Horizontal;
+        #endif
 
         if (run && !(vert < 0)) running = true;
         else running = false;

@@ -9,8 +9,6 @@ public class VampireAttackState : State
     Transform player;
     Animator anim;
 
-    Coroutine fireballCor = null;
-
     float elapTime = 0f;
     float shootRate = .2f;
     float shootAmt = 1;
